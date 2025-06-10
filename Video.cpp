@@ -1,12 +1,14 @@
 #include "Video.hpp"
-Video::Video(int id, string titulo, int duracion, string genero, vector<int> calificaciones):id(id), titulo(titulo),duracion(duracion),genero(genero),calificaciones(calificaciones),calificacionPromedio(0){}
+Video::Video(int id, double pesoGb,string titulo, int duracion, string genero, vector<int> calificaciones):id(id), pesoGb(pesoGb),titulo(titulo),duracion(duracion),genero(genero),calificaciones(calificaciones),calificacionPromedio(0){
+    this->ajustarCalificacionPromedio();
+}
 Video::~Video(){}
 void Video::añadirCalificacion(int calificacion){
     try{
         if(calificacion < 1 || calificacion > 5){
             throw calificacion;
         }
-        this->calificaciones.push_back(calificacion)
+        this->calificaciones.push_back(calificacion);
         this->ajustarCalificacionPromedio();
     }
     catch(int& e){
@@ -14,20 +16,19 @@ void Video::añadirCalificacion(int calificacion){
     }
 }
 void Video::ajustarCalificacionPromedio(){
-    int contador = 0;
-    int suma = 0
+   int contador = 0;
+    int suma = 0;
     for(int elemento: this->calificaciones){
-        contador = contador + 1;   
-        suma  = suma + elemento;
+        contador++;
+        suma += elemento;
     }
-    try{
-        this->calificacionPromedio = suma / contador;
-    }
-    catch(const exception& e){
+    if (contador > 0) {
+        this->calificacionPromedio = static_cast<double>(suma) / contador;
+    } else {
         cout << "No existen elementos disponibles para calcular la calificacion promedio" << endl;
     }
 }
-double Video::getPeso(){
+double Video::getPeso() const{
     return this->pesoGb;
 }
 string Video::getTitulo(){

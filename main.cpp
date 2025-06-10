@@ -37,7 +37,7 @@ int main(void){
          elemento->mostrarInformacion();
     }
     //Mostrar Elementos de Serie//
-    cout<<"Titulo Serie:" << serie1->getTitulo() << endl;
+    cout<<"Serie:" << serie1->getTitulo() << endl;
     int counter = 1;
     vector<Episodio*> episodiosSerie1 = serie1->getEpisodios();
     for(Episodio* elemento:episodiosSerie1){
